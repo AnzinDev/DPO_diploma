@@ -1,0 +1,8 @@
+data/
+*.pickle
+*.p
+*.xml
+.idea/
+License
+*.iml
+requirements.txt
