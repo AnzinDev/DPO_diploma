@@ -6,3 +6,4 @@ data/
 License
 *.iml
 requirements.txt
+*_test.py

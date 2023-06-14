@@ -2,23 +2,23 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import pickle
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
-# model_name = input('Enter model name: ')
-model_name = 'rus_hand2_model'
-model = pickle.load(open(model_name + '.p', 'rb'))['model']
+import settings
 
-video_source = 0
-fps = 30
-color = (255, 0, 0)
+Tk.withdraw()
+model = pickle.load(open(askopenfilename(), 'rb'))['model']
 
-capture = cv2.VideoCapture(video_source)
+
+capture = cv2.VideoCapture(settings.VIDEO_SOURCE_VIDEO_CLASSIFIER)
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
 # модуль умирает, когда находит две руки одновременно, поэтому введен костыль, скелет с метками строится максимум для одной руки
-hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.5, max_num_hands=1)
+hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=settings.MIN_DETECTION_CONFIDENCE_VIDEO_CLASSIFIER, max_num_hands=settings.MAX_NUMBER_OF_HANDS)
 
 label_dict = {0: 'A', 1: 'B'}
 
@@ -60,11 +60,11 @@ while True:
 
         text = label_dict[int(prediction[0])]
 
-        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 4)
-        cv2.putText(frame, text, (x2 + 5, y1 + 40), cv2.FONT_HERSHEY_SIMPLEX, 2, color, 4, cv2.LINE_AA)
+        cv2.rectangle(frame, (x1, y1), (x2, y2), settings.INTERFACE_COLOR_VIDEO_CLASSIFIER, settings.FONT_THICKNESS_VIDEO_CLASSIFIER)
+        cv2.putText(frame, text, (x2 + 5, y1 + 40), cv2.FONT_HERSHEY_SIMPLEX, settings.FONT_SCLAE_VIDEO_CLASSIFIER, settings.INTERFACE_COLOR_VIDEO_CLASSIFIER, settings.FONT_THICKNESS_VIDEO_CLASSIFIER, cv2.LINE_AA)
 
-    cv2.imshow('Video source ' + str(video_source), frame)
-    if cv2.waitKey(1000 // fps) & 0xFF == ord('q'):
+    cv2.imshow('Video source ' + str(settings.VIDEO_SOURCE_VIDEO_CLASSIFIER), frame)
+    if cv2.waitKey(1000 // settings.FRAMES_PER_SECOND) & 0xFF == ord('q'):
         break
 
 capture.release()

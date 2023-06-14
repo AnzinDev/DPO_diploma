@@ -1,18 +1,19 @@
 import os
 import mediapipe as mp
 import cv2
-
 import pickle
+import datetime
+import settings
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
+hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=settings.MIN_DETECTION_CONFIDENCE)
 
-data_directory = './data'
+data_directory = settings.DATA_DIRECTORY
 
-print('\nCreating dataset from images. Wait...')
+print('\nСоздание датасета из загруженных изображений. Ожидайте...')
 
 data = [] # данные о координатах меток
 labels = [] # данные о классе метки
@@ -20,9 +21,6 @@ labels = [] # данные о классе метки
 for obj_class in os.listdir(data_directory):
     for image_path in os.listdir(os.path.join(data_directory, obj_class)):
         coord_pair = []
-
-        # mins_x = []
-        # mins_y = []
 
         img = cv2.imread(os.path.join(data_directory, obj_class, image_path), cv2.IMREAD_COLOR)
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # mediapipe кушает только RGB, а imread возвращает BGR
@@ -39,8 +37,10 @@ for obj_class in os.listdir(data_directory):
             data.append(coord_pair)
             labels.append(obj_class)
 
-dataset_name = input('Dataset created. Enter dataset name to save: ')
+dataset_name = input('Датасет создан. Введите имя файла данных, либо нажмите Enter для названия по умолчанию: ')
+if not dataset_name.strip():
+    dataset_name = (settings.DATASET_DEFAULT_NAME + str(datetime.datetime.now())).replace(':', '.')
 file = open(dataset_name + '.pickle', 'wb')
 pickle.dump({'data': data, 'labels': labels}, file)
 file.close()
-print('Dataset ' + dataset_name + '.pickle saved.')
+print('Датасет ' + dataset_name + '.pickle сохранен.')
