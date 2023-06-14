@@ -68,6 +68,10 @@ MIN_DETECTION_CONFIDENCE_VIDEO_CLASSIFIER = 0.5
 #максимальное число ладоней в кадре
 MAX_NUMBER_OF_HANDS = 1
 
+#словарь меток жестов и букв, соответствующих им
+GESTURE_LABELS_DICTIONARY = {0: 'A', 1: 'B'}
+#заполняется далее аналогично
+
 #число кадров в секунду для видеопотока
 FRAMES_PER_SECOND = 30
 

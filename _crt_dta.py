@@ -15,15 +15,15 @@ data_directory = settings.DATA_DIRECTORY
 
 print('\nСоздание датасета из загруженных изображений. Ожидайте...')
 
-data = [] # данные о координатах меток
-labels = [] # данные о классе метки
+data = []
+labels = []
 
 for obj_class in os.listdir(data_directory):
     for image_path in os.listdir(os.path.join(data_directory, obj_class)):
         coord_pair = []
 
         img = cv2.imread(os.path.join(data_directory, obj_class, image_path), cv2.IMREAD_COLOR)
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # mediapipe кушает только RGB, а imread возвращает BGR
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         res = hands.process(img_rgb)
         if res.multi_hand_landmarks:

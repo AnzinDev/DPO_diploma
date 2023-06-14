@@ -15,16 +15,15 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-# модуль умирает, когда находит две руки одновременно, поэтому введен костыль, скелет с метками строится максимум для одной руки
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=settings.MIN_DETECTION_CONFIDENCE_VIDEO_CLASSIFIER, max_num_hands=settings.MAX_NUMBER_OF_HANDS)
 
-label_dict = {0: 'A', 1: 'B'}
+label_dict = settings.GESTURE_LABELS_DICTIONARY
 
 while True:
     ret, frame = capture.read()
 
     H, W, ch = frame.shape
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # mediapipe кушает только RGB, а imread возвращает BGR
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     res = hands.process(frame_rgb)
 
