@@ -10,7 +10,7 @@ import settings
 
 test_size_ = settings.DATASET_TEST_RATIO
 Tk().withdraw()
-dataset_name = askopenfilename()
+dataset_name = askopenfilename(title='Выберите файл датасета', initialdir='./')
 
 data_dict = pickle.load(open(dataset_name, 'rb'))
 

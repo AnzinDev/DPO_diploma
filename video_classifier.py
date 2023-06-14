@@ -4,12 +4,10 @@ import numpy as np
 import pickle
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
-
 import settings
 
-Tk.withdraw()
-model = pickle.load(open(askopenfilename(), 'rb'))['model']
-
+Tk().withdraw()
+model = pickle.load(open(askopenfilename(title='Выберите файл модели', initialdir='./'), 'rb'))['model']
 
 capture = cv2.VideoCapture(settings.VIDEO_SOURCE_VIDEO_CLASSIFIER)
 
