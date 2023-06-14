@@ -17,7 +17,7 @@ for j in range(number_of_classes):
     if not os.path.exists(os.path.join(data_dir, str(j))):
         os.makedirs(os.path.join(data_dir, str(j)))
 
-    print('Collecting data for class {}'.format(j))
+    print('Сбор изображений для класса {}'.format(j))
 
     while True:
         ret, frame = cap.read()
