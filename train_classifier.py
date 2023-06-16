@@ -10,13 +10,18 @@ import settings
 
 test_size_ = settings.DATASET_TEST_RATIO
 Tk().withdraw()
-dataset_name = askopenfilename(title='Выберите файл датасета', initialdir='./')
+dataset_name = askopenfilename(title='Выберите файл датасета', initialdir='./', filetypes=[("Pickle Dump File", "*.pickle"), ("All Files", "*.*")])
 
 data_dict = pickle.load(open(dataset_name, 'rb'))
 
 data = np.asarray(data_dict['data'])
+lens = []
+for l in data:
+    lens.append(len(l))
+print(set(lens))
+
 labels = np.asarray(data_dict['labels'])
-print('Разделение датасета в соотношении ' + str(test_size_)+ '.')
+print('Разделение датасета в соотношении ' + str(test_size_) + '.')
 x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=test_size_, shuffle=True, stratify=labels)
 
 model = RandomForestClassifier()

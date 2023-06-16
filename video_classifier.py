@@ -7,7 +7,7 @@ from tkinter.filedialog import askopenfilename
 import settings
 
 Tk().withdraw()
-model = pickle.load(open(askopenfilename(title='Выберите файл модели', initialdir='./'), 'rb'))['model']
+model = pickle.load(open(askopenfilename(title='Выберите файл модели', initialdir='./', filetypes=[("Model File", "*.p"), ("All Files", "*.*")]), 'rb'))['model']
 
 capture = cv2.VideoCapture(settings.VIDEO_SOURCE_VIDEO_CLASSIFIER)
 

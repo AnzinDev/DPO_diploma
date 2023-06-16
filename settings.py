@@ -20,11 +20,11 @@ DATA_DIRECTORY = './data'
 VIDEO_SOURCE_COLLECT_IMGS = 0
 
 #число классов, которые будут представлены в процессе сбора изображений
-NUMBER_OF_CLASSES = 2
+NUMBER_OF_CLASSES = 5
 
 #количество изображений, записываемых для каждого класса, в процессе сбора
 #изображений
-DATASET_SIZE = 500
+DATASET_SIZE = 250
 
 #цвет интерфейса
 INTERFACE_COLOR_COLLECT_IMGS = (255, 0, 0)
@@ -69,7 +69,7 @@ MIN_DETECTION_CONFIDENCE_VIDEO_CLASSIFIER = 0.5
 MAX_NUMBER_OF_HANDS = 1
 
 #словарь меток жестов и букв, соответствующих им
-GESTURE_LABELS_DICTIONARY = {0: 'A', 1: 'B'}
+GESTURE_LABELS_DICTIONARY = {0: 'A', 1: 'B', 2: 'E', 3: "O", 4: "C"}
 #заполняется далее аналогично
 
 #число кадров в секунду для видеопотока

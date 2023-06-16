@@ -9,7 +9,7 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=settings.MIN_DETECTION_CONFIDENCE)
+hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=settings.MIN_DETECTION_CONFIDENCE_DATA_CREATION, max_num_hands=1)
 
 data_directory = settings.DATA_DIRECTORY
 
@@ -35,7 +35,7 @@ for obj_class in os.listdir(data_directory):
                     coord_pair.append(y)
 
             data.append(coord_pair)
-            labels.append(obj_class)
+            labels.append(int(obj_class))
 
 dataset_name = input('Датасет создан. Введите имя файла данных, либо нажмите Enter для названия по умолчанию: ')
 if not dataset_name.strip():
