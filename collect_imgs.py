@@ -22,6 +22,14 @@ for j in range(number_of_classes):
     while True:
         ret, frame = cap.read()
         H, W, ch = frame.shape
+        cv2.putText(frame,
+                    'Capture image for class: {}'.format(settings.GESTURE_LABELS_DICTIONARY[j]),
+                    (5, H - 100),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    font_scale,
+                    interface_color,
+                    font_thickness,
+                    cv2.LINE_AA)
         cv2.putText(frame, 'Press Q to collect images', (5, H - 10), cv2.FONT_HERSHEY_SIMPLEX, font_scale,
                     interface_color, font_thickness, cv2.LINE_AA)
         cv2.imshow('frame', frame)
@@ -32,6 +40,22 @@ for j in range(number_of_classes):
     while counter < dataset_size:
         ret, frame = cap.read()
         frame_show = frame.copy()
+        cv2.putText(frame_show,
+                    'Capturing image for class: {}'.format(settings.GESTURE_LABELS_DICTIONARY[j]),
+                    (5, H - 100),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    font_scale,
+                    interface_color,
+                    font_thickness,
+                    cv2.LINE_AA)
+        cv2.putText(frame_show,
+                    'Progress: {}/{}'.format(counter, settings.DATASET_SIZE),
+                    (5, H - 50),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    font_scale,
+                    interface_color,
+                    font_thickness,
+                    cv2.LINE_AA)
         cv2.putText(frame_show, 'Make a gesture', (5, H - 10), cv2.FONT_HERSHEY_SIMPLEX, font_scale, interface_color,
                     font_thickness, cv2.LINE_AA)
         cv2.imshow('frame', frame_show)
