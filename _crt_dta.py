@@ -40,7 +40,6 @@ for obj_class in os.listdir(data_directory):
 dataset_name = input('Датасет создан. Введите имя файла данных, либо нажмите Enter для названия по умолчанию: ')
 if not dataset_name.strip():
     dataset_name = (settings.DATASET_DEFAULT_NAME + str(datetime.datetime.now())).replace(':', '.')
-file = open(dataset_name + '.pickle', 'wb')
-pickle.dump({'data': data, 'labels': labels}, file)
-file.close()
-print('Датасет ' + dataset_name + '.pickle сохранен.')
+with open(dataset_name + '.p', 'wb') as file:
+    pickle.dump({'data': data, 'labels': labels}, file)
+print('Датасет ' + dataset_name + '.p сохранен.')
